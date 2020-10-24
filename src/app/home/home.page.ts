@@ -18,7 +18,7 @@ validation_messages = {
   { type: 'required', message: 'El dni debe ser introducido.' },
   { type: 'minlength', message: 'Tiene que haber 9 caracteres' },
   { type: 'maxlength', message: 'Tiene que haber 9 caracteres' },
-  { type: 'pattern', message: 'El dni solo acepta 8 numeros y 1 letra' }
+  { type: 'pattern', message: 'El dni solo acepta 8 numeros y 1 letra mayuscula' }
   //para cuando se implementen los array asociativos 
   //{ type: 'validUsername', message: 'Your username has already been taken.' }
 
@@ -39,17 +39,16 @@ private navCtrl: NavController
 
 ngOnInit() {
 
-
 this.validations_form = this.formBuilder.group({
 //DNI valdiaciones
-dni: new FormControl('', Validators.compose([
+dni: new FormControl('15407349V', Validators.compose([
 Validators.maxLength(9),
 Validators.minLength(9),
 Validators.pattern('^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$'),
 Validators.required
 ])),
 //IBAN validaciones
-Iban: new FormControl('', Validators.compose([
+Iban: new FormControl('ES1231123112311231123122', Validators.compose([
 Validators.maxLength(24),
 Validators.minLength(24),
 Validators.pattern('[E][S][0-9]{22}'),
@@ -81,12 +80,14 @@ onSubmit(values){
 console.log(values);
 let navigationExtras: NavigationExtras = {
 queryParams: {
-user: JSON.stringify(values),
-numero: 3
+  //nombre que se le da al array en este caso
+  user: JSON.stringify(values),
+numero: 2
 }
 };
 
-this.navCtrl.navigateForward('/dni', navigationExtras);
+//aqui es donde se pasa la información a la otra página
+this.navCtrl.navigateForward('/user', navigationExtras);
 }
 
 }//end_class
